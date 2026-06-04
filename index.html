@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Cruz Negra</title>
+<link rel="stylesheet" href="cruznegra.css">
+
+<style>
+body {
+    margin: 0;
+    background: #0b0b0b;
+    color: #e6e6e6;
+    font-family: monospace;
+}
+
+.hidden { display: none; }
+
+header {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 2px solid #8b0000;
+    background: #111;
+}
+
+nav {
+    padding: 1rem;
+    text-align: center;
+    background: #111;
+}
+
+nav a {
+    color: #b30000;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+section {
+    max-width: 900px;
+    margin: auto;
+    padding: 1rem;
+}
+
+/* login */
+.login-box {
+    max-width: 320px;
+    margin: 4rem auto;
+    padding: 1rem;
+    background: #111;
+    border: 1px solid #8b0000;
+}
+
+input, button {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    background: #000;
+    color: #fff;
+    border: 1px solid #333;
+}
+
+button {
+    background: #8b0000;
+    cursor: pointer;
+}
+
+/* file cards */
+.file {
+    border: 1px solid #8b0000;
+    padding: 1rem;
+    margin: 1rem 0;
+    background: #120000;
+    cursor: pointer;
+}
+
+.file:hover {
+    background: #1a0000;
+}
+
+/* image slot */
+.img-slot {
+    border: 1px dashed #8b0000;
+    padding: 12px;
+    margin: 12px 0;
+    background: #000;
+    color: #b30000;
+}
+
+/* modal */
+#modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.92);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    width: 80%;
+    max-width: 750px;
+    background: #111;
+    border: 1px solid #8b0000;
+    padding: 1rem;
+}
+
+.close {
+    float: right;
+    cursor: pointer;
+    color: #8b0000;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>LA CRUZ NEGRA</h1>
+<p id="userDisplay" class="hidden">OPERADOR: <span id="usernameText"></span></p>
+</header>
+
+<nav>
+<a href="#about">Acerca de</a>
+<a href="#operations">Operaciones</a>
+<a href="#anomalies">Anomalías</a>
+<a href="#records">Registros</a>
+</nav>
+
+<!-- LOGIN -->
+<section id="loginSection">
+<div class="login-box">
+<h3>Acceso restringido</h3>
+<input id="username" placeholder="Usuario">
+<input id="password" type="password" placeholder="Contraseña">
+<button onclick="login()">Entrar</button>
+<p id="error" style="color:#8b0000;"></p>
+</div>
+</section>
+
+<!-- BASIC INFO -->
+<section id="about">
+<h2>La Cruz Negra</h2>
+<p>Organización de contención de anomalías clasificadas.</p>
+</section>
+
+<section id="operations">
+<h2>Operaciones</h2>
+<ul>
+<li>Contención</li>
+<li>Recuperación</li>
+<li>Supresión</li>
+</ul>
+</section>
+
+<!-- LOCKED CONTENT -->
+<section id="anomalies" class="hidden">
+<h2>Anomalías</h2>
+
+<div class="file" onclick="openFile('LCN-001')">LCN-001 — Soldado de la Mirada Perdida</div>
+<div class="file" onclick="openFile('LCN-016')">LCN-016 — Mutante ZEDAK</div>
+<div class="file" onclick="openFile('LCN-044')">LCN-044 — Radiantes</div>
+
+</section>
+
+<section id="records" class="hidden">
+<h2>Registros</h2>
+<div class="file" onclick="openFile('REC-014')">REC-014 — Incidente de Contención Fallida</div>
+</section>
+
+<!-- MODAL -->
+<div id="modal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">[X]</span>
+<div id="fileContent"></div>
+</div>
+</div>
+
+<script>
+
+function login() {
+    const u = document.getElementById("username").value;
+    const p = document.getElementById("password").value;
+
+    if (u === "OPERADOR" && p === "admin") {
+        document.getElementById("loginSection").classList.add("hidden");
+
+        document.getElementById("anomalies").classList.remove("hidden");
+        document.getElementById("records").classList.remove("hidden");
+
+        document.getElementById("userDisplay").classList.remove("hidden");
+        document.getElementById("usernameText").textContent = u;
+    } else {
+        document.getElementById("error").textContent = "ACCESO DENEGADO";
+    }
+}
+
+/* FILE SYSTEM */
+function openFile(id) {
+
+const files = {
+
+"LCN-001": `
+<h2>LCN-001 — “El soldado de la mirada perdida”</h2>
+
+<p><b>DESIGNACIÓN:</b> El Soldado de la Mirada Perdida</p>
+<p><b>CLASIFICACIÓN:</b> Anomalía hostil / entidad de fallo de reaparición</p>
+<p><b>NIVEL DE AMENAZA:</b> EXTREMO</p>
+
+<div class="img-slot">
+<img src= "glitchedsoldier.png" alt="Soldadoglitcheado" width= 300px>
+
+</div>
+
+<p><b>ORIGEN CONOCIDO:</b><br>
+Entidad surgida tras un fallo crítico en una máquina de reaparición experimental. El proceso no completó la reconstrucción del sujeto correctamente, generando una entidad inestable con rasgos parcialmente humanos, pero altamente alterados.
+</p>
+
+<p><b>DESCRIPCIÓN:</b><br>
+Entidad humanoide de apariencia militar. Su rasgo más distintivo es una mirada fija y vacía, sin reacción emocional aparente. No responde a comunicación verbal ni señales de reconocimiento. Se mantiene en estado de hostilidad constante.
+</p>
+
+<p><b>COMPORTAMIENTO:</b><br>
+- Acecha principalmente en sistemas de cuevas y túneles<br>
+- Prioriza eliminación de personal técnico y operativo<br>
+- Demuestra comportamiento táctico residual<br>
+- Evita exposición prolongada a zonas abiertas
+</p>
+
+<p><b>HABILIDADES ANÓMALAS:</b><br>
+- Manipulación remota de tecnología cercana<br>
+- Supervelocidad en espacios cerrados<br>
+- Fuerza aumentada en combate cuerpo a cuerpo
+</p>
+
+<p><b>NIVEL DE AMENAZA:</b> EXTREMO</p>
+
+<p><b>NOTAS ADICIONALES:</b><br>
+No muestra signos de comunicación consciente. Reacciona a presencia humana con agresión inmediata.
+</p>
+`,
+
+"LCN-016": `
+<h2>LCN-016 — “Mutante ZEDAK”</h2>
+
+<p><b>DESIGNACIÓN:</b> ZEDAK-016 “Mutante ZEDAK”</p>
+<p><b>CLASIFICACIÓN:</b> Anomalía biológica hostil / infección viral avanzada</p>
+<p><b>NIVEL DE AMENAZA:</b> EXTREMO</p>
+
+<div class="img-slot">
+<img src="caratapadapringaooo.PNG" alt="Mutante con cara tapada" width="300">
+</div>
+
+<p><b>ORIGEN CONOCIDO:</b><br>
+Entidad resultante de exposición al virus experimental ZEDAK. El agente viral presenta mutaciones agresivas en el huésped, alterando su fisiología, conducta y cognición.
+</p>
+
+<p><b>DESCRIPCIÓN:</b><br>
+Organismo humanoide profundamente alterado. Mantiene rasgos humanos básicos, pero con deformaciones variables según nivel de infección.
+</p>
+
+<p><b>COMPORTAMIENTO:</b><br>
+- Alta tendencia al sigilo y observación prolongada<br>
+- Ataques repentinos tras fases de acecho<br>
+- Violencia extrema sin retirada<br>
+- Inmovilidad prolongada antes de atacar
+</p>
+
+<p><b>HABILIDADES ANÓMALAS:</b><br>
+- Fuerza aumentada<br>
+- Velocidad y reflejos incrementados<br>
+- Grito aturdidor de alta intensidad
+</p>
+
+<p><b>NIVEL DE AMENAZA:</b> EXTREMO</p>
+
+<p><b>NOTAS ADICIONALES:</b><br>
+El virus reduce progresivamente la capacidad de razonamiento, dejando solo patrones básicos de caza.
+</p>
+`,
+
+"LCN-044": `
+<h2>LCN-044 — “Radiantes”</h2>
+
+<p><b>DESIGNACIÓN:</b> “Radiantes”</p>
+<p><b>CLASIFICACIÓN:</b> Anomalía humanoide / soldados alterados por COMPUESTO-K</p>
+<p><b>NIVEL DE AMENAZA:</b> EXTREMO</p>
+
+<div class="img-slot">
+<img src="Radiantes.PNG" alt="Soldados modificados geneticamente" width="300">
+</div>
+
+<p><b>ORIGEN CONOCIDO:</b><br>
+Grupo de soldados expuestos a COMPUESTO-K durante un incidente en instalación enemiga. La sustancia reaccionó con sistemas de reaparición y biología del personal.
+</p>
+
+<p><b>DESCRIPCIÓN:</b><br>
+Entidades humanoides fuertemente alteradas. Armaduras y equipo militar integrados permanentemente al tejido biológico.
+</p>
+
+<p><b>COMPORTAMIENTO:</b><br>
+- Hostilidad total hacia vida no alterada<br>
+- Coordinación táctica en grupo<br>
+- Patrullaje de zonas afectadas<br>
+- Violencia inmediata ante contacto
+</p>
+
+<p><b>HABILIDADES ANÓMALAS:</b><br>
+- Resistencia extrema al daño<br>
+- Fuerza superhumana<br>
+- Armadura biológica funcional integrada
+</p>
+
+<p><b>NIVEL DE AMENAZA:</b> EXTREMO</p>
+
+<p><b>NOTAS ADICIONALES:</b><br>
+El COMPUESTO-K ha reescrito la relación entre materia orgánica y tecnología, creando un híbrido irreversible.
+</p>
+`
+};
+
+document.getElementById("fileContent").innerHTML =
+files[id] || "Archivo no encontrado.";
+
+document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() {
+document.getElementById("modal").style.display = "none";
+}
+window.onclick = function(event) {
+    const modal = document.getElementById("modal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+
+</script>
+
+</body>
+</html>

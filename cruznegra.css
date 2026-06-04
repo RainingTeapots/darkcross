@@ -1,0 +1,188 @@
+body {
+    margin: 0;
+
+    background-image: url("fondocreo.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    color: #e6e6e6;
+    font-family: "Courier New", monospace;
+}
+
+/* scanlines */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.02),
+        rgba(255,255,255,0.02) 1px,
+        transparent 3px,
+        transparent 5px
+    );
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: #0b0b0b;
+    border-bottom: 2px solid #8b0000;
+}
+
+header h1 {
+    margin: 0;
+    letter-spacing: 7px;
+    text-shadow: 0 0 10px rgba(139,0,0,0.4);
+}
+
+header p {
+    color: #aaa;
+}
+
+/* NAV */
+nav {
+    text-align: center;
+    padding: 0.8rem;
+    background: #111;
+    border-bottom: 1px solid #222;
+}
+
+nav a {
+    color: #b30000;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+nav a:hover {
+    color: #ff1a1a;
+    text-shadow: 0 0 6px #8b0000;
+}
+
+/* SECTIONS */
+section {
+    max-width: 950px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: rgba(20,20,20,0.55);
+    border: 1px solid #1f1f1f;
+    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+
+/* LOGIN */
+.login-box {
+    max-width: 340px;
+    margin: 4rem auto;
+    padding: 1.5rem;
+    background: #111;
+    border: 1px solid #8b0000;
+    box-shadow: 0 0 15px rgba(139,0,0,0.2);
+}
+
+input {
+    width: 100%;
+    padding: 0.6rem;
+    margin-top: 0.6rem;
+    background: #000;
+    border: 1px solid #2a2a2a;
+    color: #fff;
+}
+
+input:focus {
+    outline: none;
+    border-color: #8b0000;
+    box-shadow: 0 0 6px rgba(139,0,0,0.4);
+}
+
+button {
+    width: 100%;
+    margin-top: 0.8rem;
+    padding: 0.6rem;
+    background: linear-gradient(to bottom, #8b0000, #3a0000);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+button:hover {
+    background: #b30000;
+}
+
+/* FILE CARDS */
+.file {
+    padding: 1rem;
+    margin: 1rem 0;
+    background: #120000;
+    border-left: 3px solid #8b0000;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.file:hover {
+    background: #1a0000;
+    transform: translateX(3px);
+}
+
+/* MODAL */
+#modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.92);
+}
+
+.modal-content {
+    width: 85%;
+    max-width: 800px;
+    max-height: 85vh;
+    overflow-y: auto;
+    background: #111;
+    border: 1px solid #8b0000;
+    padding: 1.5rem;
+}
+
+/* CLOSE BUTTON */
+.modal-content span {
+    float: right;
+    cursor: pointer;
+    color: #8b0000;
+    font-size: 18px;
+}
+
+.modal-content span:hover {
+    color: #ff1a1a;
+}
+
+/* IMAGE SLOT */
+.img-slot {
+    border: 1px dashed #8b0000;
+    padding: 12px;
+    margin: 12px 0;
+    background: #000;
+    color: #b30000;
+    font-size: 0.85rem;
+}
+
+/* HIDDEN */
+.hidden {
+    display: none;
+}
+
+/* HEADERS DETAIL */
+h2 {
+    border-bottom: 1px solid #1a1a1a;
+    padding-bottom: 0.4rem;
+}
+html{
+    background-image: url(fondocreo.jpeg)
+}
